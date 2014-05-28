@@ -2,6 +2,7 @@ package se.lignum.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import se.lignum.main.scenes.DevelopersScene;
 import se.lignum.main.scenes.GameScene;
 import se.lignum.main.scenes.MenuScene;
 import se.lignum.main.utils.Mouse;
@@ -38,6 +40,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static boolean vk_up = false;
 	public static boolean vk_enter = false;
 	public static boolean vk_f1 = false;
+	public static boolean vk_escape = false;
 	
 	Mouse mouse = new Mouse();
 
@@ -52,6 +55,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		//this is where the scenes should be added
 		this.scenes.add(new MenuScene());
 		this.scenes.add(new GameScene());
+		this.scenes.add(new DevelopersScene());
 
 		//frame options
 		this.setSize(SCREENSIZE);
@@ -91,10 +95,13 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		}
 
 		if(showDevGui){
+			gg.setFont(new Font("Arial",12,12));
 			gg.setColor(Color.white);
 			gg.drawString("FPS: " + this.fps + " | UPS: " + this.ups, 16, 32);
 			
 		}
+		
+		gg.setFont(new Font(Font.DIALOG,16,16));
 
 		gg.setColor(Color.black);
 
@@ -126,6 +133,11 @@ public class Game extends JFrame implements Runnable, KeyListener {
 				showDevGui = false;
 			}
 			vk_f1 = false;
+		}
+		
+		if(vk_escape){
+			sceneIndex = 0;
+			vk_escape = false;
 		}
 		
 		
@@ -192,6 +204,10 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		if(e.getKeyCode() == KeyEvent.VK_F1){
 			vk_f1 = true;
 		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			vk_escape = true;
+		}
 
 
 	}
@@ -212,6 +228,10 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		if(e.getKeyCode() == KeyEvent.VK_F1){
 			vk_f1 = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			vk_escape = false;
 		}
 
 	}
