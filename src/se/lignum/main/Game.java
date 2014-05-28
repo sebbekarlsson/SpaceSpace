@@ -19,7 +19,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 2;
-	private String fps, ups;
+	private float fps, ups;
 
 	public static final Dimension SCREENSIZE = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
 	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width/2,SCREENSIZE.height/2);
@@ -86,7 +86,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			instance.tick();
 			instance.draw(gg);
 			
-			
+			 
 		}
 		
 		
@@ -97,7 +97,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	
 	// Updates 60 times/sec
 	private void tick(){
-		System.out.println("FPS: " + fps + ", UPS: " + ups);
+		//System.out.println("FPS: " + fps + ", UPS: " + ups);
 	}
 
 	private long timethen;
@@ -105,18 +105,20 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	@Override
 	public void run() {
 		timethen = System.currentTimeMillis();
+		float now = System.currentTimeMillis();
 		while(true){
-			long timethenfps = System.currentTimeMillis();
-			this.repaint();
-			this.fps = ((timethenfps - System.currentTimeMillis()) / 60) + "";
-			long now = System.currentTimeMillis();
-			if(timethen + (1000/60) <= now) {
-				this.ups = (now - timethen) + "";
-				tick();
-			} else {
-				timethen = System.currentTimeMillis();
-			}
 			
+			this.repaint();
+			
+			
+	
+			now = System.currentTimeMillis();
+			
+			
+			
+			this.fps = ((timethen - now));
+			System.out.println(now - timethen);
+			tick();
 		}
 
 	}
