@@ -2,15 +2,17 @@ package se.lignum.main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 
-import se.lignum.main.scenes.testScene;
+import se.lignum.main.scenes.MenuScene;
 
-public class Game extends JFrame implements Runnable {
+public class Game extends JFrame implements Runnable, KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
@@ -25,19 +27,25 @@ public class Game extends JFrame implements Runnable {
 	
 	List<Scene> scenes = new ArrayList<Scene>();
 	public int sceneIndex = 0;
+	
+	public static boolean vk_down = false;
+	public static boolean vk_up = false;
+	public static boolean vk_enter = false;
 
 
 
 
 
 	public Game() {
-		this.scenes.add(new testScene());
+		this.scenes.add(new MenuScene());
 		
 		this.setSize(SCREENSIZE);
 		this.setTitle("Space Game");
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.addKeyListener(this);
 	}
 
 	//starts the gameloop thread
@@ -61,12 +69,15 @@ public class Game extends JFrame implements Runnable {
 			gg.drawImage(getCurrentScene().background, 0, 0, this);
 		}
 
-		
+		getCurrentScene().draw(gg);
+		getCurrentScene().tick();
 		//calls the tick and draw method for every instance in the current scene
 		for(int i = 0; i < getCurrentScene().getInstances().size(); i++){
+			
 			Instance instance = getCurrentScene().getInstances().get(i);
 			instance.tick();
 			instance.draw(gg);
+			
 			
 		}
 		
@@ -95,6 +106,44 @@ public class Game extends JFrame implements Runnable {
 	//returns the current scene
 	public Scene getCurrentScene(){
 		return this.scenes.get(sceneIndex);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_UP){
+			vk_up = true;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_DOWN){
+			vk_down = true;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			vk_enter = true;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_UP){
+			vk_up = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_DOWN){
+			vk_down = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			vk_enter = false;
+		}
+		
 	}
 
 

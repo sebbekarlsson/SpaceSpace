@@ -1,5 +1,6 @@
 package se.lignum.main;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Scene {
 	List<Instance> instances = new ArrayList<Instance>();
 	
 	public void tick(){}
+	public void draw(Graphics g){}
 	
 	
 	//returns all the instances in the current scene

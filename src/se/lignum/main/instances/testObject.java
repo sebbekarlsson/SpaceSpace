@@ -1,5 +1,7 @@
 package se.lignum.main.instances;
 
+import java.awt.event.KeyEvent;
+
 import se.lignum.main.Instance;
 
 public class testObject extends Instance{
@@ -10,6 +12,6 @@ public class testObject extends Instance{
 	}
 	
 	public void tick(){
-		x++;
+		
 	}
 }

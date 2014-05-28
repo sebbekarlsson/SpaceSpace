@@ -5,8 +5,10 @@ import java.awt.Image;
 
 import se.lignum.main.utils.ImageLoader;
 
+
 public class Instance {
 
+	
 	public double x,y;
 	Image sprite;
 
