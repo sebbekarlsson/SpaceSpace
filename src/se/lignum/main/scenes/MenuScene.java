@@ -29,6 +29,7 @@ public class MenuScene extends Scene {
 
 
 	private int selectionIndex = 0;
+	int xx;
 
 	public void tick(){
 		if(Game.vk_down){
@@ -37,7 +38,7 @@ public class MenuScene extends Scene {
 			}else{
 				selectionIndex = 0;
 			}
-			
+			xx = 16;
 			Game.vk_down = false;
 		}
 		else if(Game.vk_up){
@@ -46,7 +47,7 @@ public class MenuScene extends Scene {
 			}else{
 				selectionIndex = options.length-1;
 			}
-			
+			xx = 16;
 			Game.vk_up = false;
 		}
 
@@ -63,6 +64,10 @@ public class MenuScene extends Scene {
 
 			Game.vk_enter = false;
 		}
+		
+		if(xx < 16+8){
+			xx++;
+		}
 
 
 	}
@@ -77,10 +82,12 @@ public class MenuScene extends Scene {
 		for(int i = 0; i < options.length; i++){
 			if(i == selectionIndex){
 				g.setColor(Color.green);
+				g.drawString(options[i], xx, 64+32*i);
 			}else{
 				g.setColor(Color.blue);
+				g.drawString(options[i], 16, 64+32*i);
 			}
-			g.drawString(options[i], 16, 64+32*i);
+			
 		}
 		
 		g.setColor(Color.WHITE);

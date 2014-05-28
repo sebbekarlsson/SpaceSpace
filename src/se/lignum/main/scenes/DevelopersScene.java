@@ -26,6 +26,7 @@ public class DevelopersScene extends Scene {
 	};
 	
 	private int selectionIndex = 0;
+	int xx = 16;
 	
 	public void tick(){
 		if(Game.vk_down){
@@ -34,7 +35,7 @@ public class DevelopersScene extends Scene {
 			}else{
 				selectionIndex = 0;
 			}
-			
+			xx = 16;
 			Game.vk_down = false;
 		}
 		else if(Game.vk_up){
@@ -43,11 +44,13 @@ public class DevelopersScene extends Scene {
 			}else{
 				selectionIndex = people.length-1;
 			}
-			
+			xx = 16;
 			Game.vk_up = false;
 		}
 
-	
+		if(xx < 16+8){
+			xx++;
+		}
 
 
 	}
@@ -57,11 +60,14 @@ public class DevelopersScene extends Scene {
 		g.setColor(Color.BLUE);
 		g.drawRect(0, 0, 186, Game.RENDERSIZE.height);
 		
+		
 		for(int i = 0; i < people.length; i++){
 			if(i == selectionIndex){
 				g.setColor(Color.green);
-				g.drawString("*"+people[i], 16, 64+32*i);
+				g.drawString(people[i], xx, 64+32*i);
+				
 			}else{
+				
 				g.setColor(Color.blue);
 				g.drawString(people[i], 16, 64+32*i);
 			}
