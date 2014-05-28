@@ -101,22 +101,22 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	
 	@Override
 	public void run() {
-		float now = System.currentTimeMillis();
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
 		int frames = 0;
 		int updates = 0;
-		
-		while(true){
+		requestFocus();
+		while (true) {
+			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
+			lastTime = now;
 			while (delta >= 1) {
 				tick();
 				updates++;
 				delta--;
 			}
-			
 			repaint();
 			frames++;
 			
