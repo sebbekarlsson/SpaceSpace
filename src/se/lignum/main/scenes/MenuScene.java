@@ -66,7 +66,7 @@ public class MenuScene extends Scene {
 		}
 		
 		if(xx < 16+8){
-			xx+3;
+			xx+=3;
 		}
 
 
