@@ -42,7 +42,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static boolean vk_f1 = false;
 	public static boolean vk_escape = false;
 	
-	Mouse mouse = new Mouse();
+	public static Mouse mouse = new Mouse();
 
 
 
@@ -155,6 +155,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		while (true) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
+			System.out.println(delta);
 			lastTime = now;
 			while (delta >= 1) {
 				tick();
@@ -166,7 +167,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(updates + " Ups " + frames + " Fps");
+				
 				fps = frames;
 				ups = updates;
 				updates = 0;
