@@ -8,4 +8,8 @@ public class testObject extends Instance{
 		super(x, y);
 		this.setSprite("images/pc.png");
 	}
+	
+	public void tick(){
+		x++;
+	}
 }

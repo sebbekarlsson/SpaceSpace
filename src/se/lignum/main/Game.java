@@ -40,6 +40,7 @@ public class Game extends JFrame implements Runnable {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	//starts the gameloop thread
 	public void start(){
 		this.gameLoop.start();
 	}
@@ -55,10 +56,13 @@ public class Game extends JFrame implements Runnable {
 
 		gg.clearRect(0, 0, SCREENSIZE.width, SCREENSIZE.width);
 		
+		//draws the current scenes background if there is any
 		if(getCurrentScene().background != null){
 			gg.drawImage(getCurrentScene().background, 0, 0, this);
 		}
 
+		
+		//calls the tick and draw method for every instance in the current scene
 		for(int i = 0; i < getCurrentScene().getInstances().size(); i++){
 			Instance instance = getCurrentScene().getInstances().get(i);
 			instance.tick();
@@ -88,6 +92,7 @@ public class Game extends JFrame implements Runnable {
 
 	}
 	
+	//returns the current scene
 	public Scene getCurrentScene(){
 		return this.scenes.get(sceneIndex);
 	}
