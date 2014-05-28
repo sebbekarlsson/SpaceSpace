@@ -1,5 +1,6 @@
 package se.lignum.main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -26,32 +27,36 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static BufferedImage offscreen = new BufferedImage(RENDERSIZE.width,RENDERSIZE.height,BufferedImage.TYPE_INT_RGB);
 
 	Thread gameLoop = new Thread(this,"Game Loop");
-	
+
 	List<Scene> scenes = new ArrayList<Scene>();
 	public static int sceneIndex = 0;
-	
+
+	public static boolean showDevGui = false;
+
 	public static boolean vk_down = false;
 	public static boolean vk_up = false;
 	public static boolean vk_enter = false;
+	public static boolean vk_f1 = false;
+
 
 
 
 
 
 	public Game() {
-		
-		
+
+
 		//this is where the scenes should be added
 		this.scenes.add(new MenuScene());
 		this.scenes.add(new GameScene());
-		
+
 		//frame options
 		this.setSize(SCREENSIZE);
 		this.setTitle("Space Game");
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		this.addKeyListener(this);
 	}
 
@@ -71,34 +76,51 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		Graphics gg = offscreen.getGraphics();
 
 		gg.clearRect(0, 0, SCREENSIZE.width, SCREENSIZE.width);
-		
+
 		//draws the current scenes background if there is any
 		if(getCurrentScene().background != null){
 			gg.drawImage(getCurrentScene().background, 0, 0, this);
 		}
 
+		if(showDevGui){
+			gg.setColor(Color.white);
+			gg.drawString("FPS: " + this.fps + " | UPS: " + this.ups, 16, 32);
+			
+		}
+
+		gg.setColor(Color.black);
+
+
 		getCurrentScene().draw(gg);
 		getCurrentScene().tick();
 		//calls the tick and draw method for every instance in the current scene
 		for(int i = 0; i < getCurrentScene().getInstances().size(); i++){
-			
+
 			Instance instance = getCurrentScene().getInstances().get(i);
 			instance.tick();
 			instance.draw(gg);
-			
-			 
+
+
 		}
-		
-		
-		
+
+
+
 		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 1), 0, 0, this);
-		
+
 	}
-	
+
 	// Updates 60 times/sec
 	private void tick(){
+		if(vk_f1){
+			if(showDevGui == false){
+				showDevGui = true;
+			}else{
+				showDevGui = false;
+			}
+			vk_f1 = false;
+		}
 	}
-	
+
 	@Override
 	public void run() {
 		long lastTime = System.nanoTime();
@@ -119,17 +141,19 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			}
 			repaint();
 			frames++;
-			
+
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				System.out.println(updates + " Ups " + frames + " Fps");
+				fps = frames;
+				ups = updates;
 				updates = 0;
 				frames = 0;
 			}
 		}
 
 	}
-	
+
 	//returns the current scene
 	public Scene getCurrentScene(){
 		return this.scenes.get(sceneIndex);
@@ -137,8 +161,8 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
-		
+
+
 	}
 
 	@Override
@@ -146,15 +170,20 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		if(e.getKeyCode() == KeyEvent.VK_UP){
 			vk_up = true;
 		}
-		
+
 		if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			vk_down = true;
 		}
-		
+
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
 			vk_enter = true;
 		}
-		
+
+		if(e.getKeyCode() == KeyEvent.VK_F1){
+			vk_f1 = true;
+		}
+
+
 	}
 
 	@Override
@@ -162,15 +191,19 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		if(e.getKeyCode() == KeyEvent.VK_UP){
 			vk_up = false;
 		}
-		
+
 		if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			vk_down = false;
 		}
-		
+
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
 			vk_enter = false;
 		}
-		
+
+		if(e.getKeyCode() == KeyEvent.VK_F1){
+			vk_f1 = false;
+		}
+
 	}
 
 
