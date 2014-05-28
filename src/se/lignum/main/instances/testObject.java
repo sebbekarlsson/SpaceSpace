@@ -14,8 +14,6 @@ public class testObject extends Instance{
 	public void tick(){
 		if(this.isInSelection()){
 			marked = true;
-		}else{
-			marked = false;
 		}
 	}
 	

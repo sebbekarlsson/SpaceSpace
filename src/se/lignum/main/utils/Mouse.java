@@ -1,15 +1,15 @@
 package se.lignum.main.utils;
 
-import java.awt.event.MouseAdapter;
-import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
 import se.lignum.main.Game;
+import se.lignum.main.Instance;
 import se.lignum.main.scenes.GameScene;
 
 public class Mouse extends MouseAdapter {
@@ -49,10 +49,17 @@ public class Mouse extends MouseAdapter {
 			
 			GameScene.mb_left_hold = true;
 			
+			for(int i = 0; i < Game.getCurrentScene().getInstances().size(); i++){
+				Instance instance = Game.getCurrentScene().getInstances().get(i);
+				instance.marked = false;
+			}
+			
 		}
 		if(e.getButton() == 2){
 			mb_right = true;
 		}
+		
+		
 	}
 	
 	@Override

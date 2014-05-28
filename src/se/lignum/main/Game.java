@@ -31,7 +31,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 	Thread gameLoop = new Thread(this,"Game Loop");
 
-	List<Scene> scenes = new ArrayList<Scene>();
+	static List<Scene> scenes = new ArrayList<Scene>();
 	public static int sceneIndex = 0;
 
 	public static boolean showDevGui = false;
@@ -181,8 +181,8 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	}
 
 	//returns the current scene
-	public Scene getCurrentScene(){
-		return this.scenes.get(sceneIndex);
+	public static Scene getCurrentScene(){
+		return scenes.get(sceneIndex);
 	}
 
 	@Override
