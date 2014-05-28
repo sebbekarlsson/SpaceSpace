@@ -1,11 +1,6 @@
 package se.lignum.main.instances;
 
-import java.awt.event.KeyEvent;
-
-import se.lignum.main.Game;
-import se.lignum.main.Instance;
-
-public class testObject extends Ship{
+public class testObject extends Ship {
 
 	int xx = 0;
 	int yy = 0;
@@ -16,10 +11,4 @@ public class testObject extends Ship{
 
 	}
 
-
 }
-
-
-
-
-

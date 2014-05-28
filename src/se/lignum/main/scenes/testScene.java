@@ -5,8 +5,8 @@ import se.lignum.main.instances.testObject;
 
 public class testScene extends Scene {
 
-	public testScene(){
-		this.instantiate(new testObject(120,120));
+	public testScene() {
+		this.instantiate(new testObject(120, 120));
 	}
-	
+
 }
