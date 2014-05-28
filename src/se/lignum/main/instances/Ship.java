@@ -72,11 +72,8 @@ public class Ship extends Instance {
 				} else if (y > yy) {
 					y--;
 				}
-
 			}
-
 		}
-
 	}
 
 	public void damage(double damage) {
