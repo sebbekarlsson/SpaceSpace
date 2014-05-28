@@ -16,6 +16,17 @@ public class MenuScene extends Scene {
 			"Developers",
 			"Quit"
 	};
+	
+	
+	private String[] informations = new String[]{
+			"Play with... yourself. Ha ha",
+			"Play online!",
+			"Well... Options I guess.",
+			"Go here if you are lost and don't know what to do",
+			"Who are we?",
+			"Leave me :("
+	};
+
 
 	private int selectionIndex = 0;
 
@@ -57,6 +68,9 @@ public class MenuScene extends Scene {
 	}
 
 	public void draw(Graphics g){
+		
+		g.setColor(Color.BLUE);
+		g.drawRect(0, 0, 186, Game.RENDERSIZE.height);
 
 		g.setColor(Color.blue);
 
@@ -68,6 +82,9 @@ public class MenuScene extends Scene {
 			}
 			g.drawString(options[i], 16, 64+32*i);
 		}
+		
+		g.setColor(Color.WHITE);
+		g.drawString(informations[selectionIndex], 200, 64);
 
 
 	}

@@ -53,6 +53,10 @@ public class DevelopersScene extends Scene {
 	}
 	
 	public void draw(Graphics g){
+		
+		g.setColor(Color.BLUE);
+		g.drawRect(0, 0, 186, Game.RENDERSIZE.height);
+		
 		for(int i = 0; i < people.length; i++){
 			if(i == selectionIndex){
 				g.setColor(Color.green);
@@ -64,6 +68,7 @@ public class DevelopersScene extends Scene {
 			
 		}
 		
+		g.setColor(Color.WHITE);
 		g.drawString(informations[selectionIndex], 200, 64);
 	}
 	
