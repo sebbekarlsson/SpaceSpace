@@ -60,11 +60,13 @@ public class DevelopersScene extends Scene {
 		for(int i = 0; i < people.length; i++){
 			if(i == selectionIndex){
 				g.setColor(Color.green);
+				g.drawString("*"+people[i], 16, 64+32*i);
 			}else{
 				g.setColor(Color.blue);
+				g.drawString(people[i], 16, 64+32*i);
 			}
 			
-			g.drawString(people[i], 16, 64+32*i);
+			
 			
 		}
 		
