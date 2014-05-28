@@ -12,7 +12,7 @@ public class Instance {
 
 	
 	public double x,y;
-	Image sprite;
+	protected Image sprite;
 	public boolean marked = false;
 
 	public Instance(double x, double y){
@@ -24,10 +24,7 @@ public class Instance {
 
 	public void draw(Graphics g){
 		drawDefaultSprite(g);
-		if(marked){
-			g.setColor(Color.BLUE);
-			g.drawRect((int)x-sprite.getWidth(null)/2, (int)y-sprite.getHeight(null)/2,(int) sprite.getWidth(null)*2,(int) sprite.getHeight(null)*2);
-		}
+		
 	}
 
 	public void drawDefaultSprite(Graphics g){
@@ -47,7 +44,7 @@ public class Instance {
 	}
 	
 	public boolean isInSelection(){
-		if(this.x >= Game.mouse.clickedX && this.x < Game.mouse.getX() && this.y > Game.mouse.clickedY && this.y < Game.mouse.getY() && GameScene.mb_left_hold){
+		if(this.x >= Game.mouse.clickedX && this.x < Game.mouse.getX() && this.y > Game.mouse.clickedY && this.y < Game.mouse.getY() && GameScene.mb_left_hold && Game.vk_control){
 			return true;
 		}
 		
