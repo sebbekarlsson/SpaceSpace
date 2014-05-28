@@ -32,6 +32,8 @@ public class GameScene extends Scene {
 			if(!instanceExists(MovePoint.class)){
 				Game.getCurrentScene().instantiate(new MovePoint(Game.mouse.getX(),Game.mouse.getY()));
 				Game.mouse.mb_right = false;
+			}else{
+				Game.getCurrentScene().destroyAll(MovePoint.class);
 			}
 		}
 

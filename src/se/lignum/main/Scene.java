@@ -32,6 +32,15 @@ public class Scene {
 		instances.remove(instance);
 	}
 	
+	public void destroyAll(Object o){
+		for(int i = 0; i < instances.size(); i++){
+			Instance instance = instances.get(i);
+			if(instance.getClass().equals(o)){
+				instances.remove(instance);
+			}
+		}
+	}
+	
 	public boolean instanceExists(Object o){
 		for(int i = 0; i < instances.size(); i++){
 			Instance instance = instances.get(i);
