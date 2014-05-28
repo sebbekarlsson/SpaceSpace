@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import se.lignum.main.scenes.GameScene;
 import se.lignum.main.scenes.MenuScene;
 
 public class Game extends JFrame implements Runnable, KeyListener {
@@ -26,7 +27,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	Thread gameLoop = new Thread(this,"Game Loop");
 	
 	List<Scene> scenes = new ArrayList<Scene>();
-	public int sceneIndex = 0;
+	public static int sceneIndex = 0;
 	
 	public static boolean vk_down = false;
 	public static boolean vk_up = false;
@@ -38,6 +39,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 	public Game() {
 		this.scenes.add(new MenuScene());
+		this.scenes.add(new GameScene());
 		
 		this.setSize(SCREENSIZE);
 		this.setTitle("Space Game");

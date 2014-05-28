@@ -32,6 +32,11 @@ public class MenuScene extends Scene {
 			if(selectionIndex == options.length-1){
 				System.exit(0);
 			}
+			else if(selectionIndex == 0){
+				Game.sceneIndex += 1;
+			}
+			
+			Game.vk_enter = false;
 		}
 		
 		
