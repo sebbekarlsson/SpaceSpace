@@ -38,9 +38,13 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 
 	public Game() {
+		
+		
+		//this is where the scenes should be added
 		this.scenes.add(new MenuScene());
 		this.scenes.add(new GameScene());
 		
+		//frame options
 		this.setSize(SCREENSIZE);
 		this.setTitle("Space Game");
 		this.setResizable(false);
