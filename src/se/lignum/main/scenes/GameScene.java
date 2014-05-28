@@ -34,7 +34,6 @@ public class GameScene extends Scene {
 				Game.getCurrentScene().destroyAll(MovePoint.class);
 			}
 		}
-
 	}
 
 	@Override
@@ -63,9 +62,6 @@ public class GameScene extends Scene {
 			g2d.setColor(Color.BLUE);
 			g2d.fill(rect);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-
 		}
-
 	}
-
 }

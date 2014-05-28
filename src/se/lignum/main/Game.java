@@ -22,7 +22,9 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 2;
 	private float fps, ups;
-
+	
+	public static final int SCROLL_THRESHOLD = 100;
+	
 	public static final Dimension SCREENSIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width / 2, SCREENSIZE.height / 2);
 	public static BufferedImage offscreen = new BufferedImage(RENDERSIZE.width, RENDERSIZE.height, BufferedImage.TYPE_INT_RGB);
@@ -42,7 +44,11 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static boolean vk_control = false;
 
 	public static Mouse mouse = new Mouse();
-
+	
+	public int camX;
+	public int camY;
+	public static final Dimension WORLDSIZE = new Dimension(WIDTH * 8, HEIGHT * 8);
+	
 	public Game() {
 
 		//this is where the scenes should be added
@@ -84,14 +90,13 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		//draws the current scenes background if there is any
 		if (getCurrentScene().background != null) {
-			gg.drawImage(getCurrentScene().background, 0, 0, this);
+			gg.drawImage(getCurrentScene().background, -camX, -camY, this); // This is yet untested...
 		}
 
 		if (showDevGui) {
 			gg.setFont(new Font("Arial", 12, 12));
 			gg.setColor(Color.white);
 			gg.drawString("FPS: " + this.fps + " | UPS: " + this.ups, 16, 32);
-
 		}
 
 		gg.setFont(new Font(Font.DIALOG, 16, 16));
@@ -100,18 +105,15 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		//calls the tick and draw method for every instance in the current scene
 		for (int i = 0; i < getCurrentScene().getInstances().size(); i++) {
-
 			Instance instance = getCurrentScene().getInstances().get(i);
 			instance.tick();
-			instance.draw(gg);
-
+			instance.draw(gg,camX,camY);
 		}
 
 		getCurrentScene().draw(gg);
 		getCurrentScene().tick();
 
 		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 0), 0, 0, this);
-
 	}
 
 	// Updates 60 times/sec
@@ -128,7 +130,19 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			sceneIndex = 0;
 			vk_escape = false;
 		}
-
+		
+		// Update camera.
+		if (mouse.getX() > RENDERSIZE.width - SCROLL_THRESHOLD) {
+			camX--;
+		} else if (mouse.getX() < SCROLL_THRESHOLD) {
+			camX++;
+		}
+		
+		if (mouse.getY() > RENDERSIZE.height - SCROLL_THRESHOLD) {
+			camY--;
+		} else if (mouse.getY() < SCROLL_THRESHOLD) {
+			camY++;
+		}
 	}
 
 	@Override
