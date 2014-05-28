@@ -117,6 +117,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 				updates++;
 				delta--;
 			}
+			
 			repaint();
 			frames++;
 			
