@@ -155,7 +155,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		while (true) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
-			System.out.println(delta);
+			
 			lastTime = now;
 			while (delta >= 1) {
 				tick();

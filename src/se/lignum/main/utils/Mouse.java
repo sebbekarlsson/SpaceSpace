@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import se.lignum.main.Game;
+import se.lignum.main.scenes.GameScene;
 
 public class Mouse extends MouseAdapter {
 	
@@ -16,6 +17,8 @@ public class Mouse extends MouseAdapter {
 	
 	public int releasedY = 0;
 	public int releasedX = 0;
+	
+	
 	@Override
 	public void mouseMoved(MouseEvent e){
 		this.x = e.getX();
@@ -30,6 +33,7 @@ public class Mouse extends MouseAdapter {
 		clickedX = x;
 		if(e.getButton() == 1){
 			mb_left = true;
+			
 		}
 		if(e.getButton() == 2){
 			mb_right = true;
@@ -42,6 +46,9 @@ public class Mouse extends MouseAdapter {
 		releasedX = x;
 		if(e.getButton() == 1){
 			mb_left = false;
+			
+			
+			GameScene.hold = false;
 		}
 		if(e.getButton() == 2){
 			mb_right = false;
