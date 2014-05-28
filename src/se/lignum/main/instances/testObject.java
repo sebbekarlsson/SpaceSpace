@@ -12,7 +12,9 @@ public class testObject extends Instance{
 	}
 	
 	public void tick(){
-		
+		if(this.isInSelection()){
+			System.out.println("LOL");
+		}
 	}
 	
 	

@@ -35,7 +35,7 @@ public class Mouse extends MouseAdapter {
 	
 	@Override
 	public void mouseMoved(MouseEvent e){
-		System.out.println("X:"+x+" Y:"+y);
+		
 		
 	}
 	
@@ -64,7 +64,7 @@ public class Mouse extends MouseAdapter {
 			
 			
 			GameScene.mb_left_hold = false;
-			System.out.println("released");
+			
 		}
 		if(e.getButton() == 2){
 			mb_right = false;
