@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import se.lignum.main.scenes.GameScene;
 import se.lignum.main.scenes.MenuScene;
+import se.lignum.main.utils.Mouse;
 
 public class Game extends JFrame implements Runnable, KeyListener {
 
@@ -37,6 +38,8 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static boolean vk_up = false;
 	public static boolean vk_enter = false;
 	public static boolean vk_f1 = false;
+	
+	Mouse mouse = new Mouse();
 
 
 
@@ -58,6 +61,11 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.addKeyListener(this);
+		this.addMouseListener(mouse);
+		this.addMouseMotionListener(mouse);
+		
+		this.setFocusable(true);
+		this.requestFocus();
 	}
 
 	//starts the gameloop thread
@@ -119,6 +127,8 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			}
 			vk_f1 = false;
 		}
+		
+		
 	}
 
 	@Override

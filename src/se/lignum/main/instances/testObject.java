@@ -14,4 +14,6 @@ public class testObject extends Instance{
 	public void tick(){
 		
 	}
+	
+	
 }
