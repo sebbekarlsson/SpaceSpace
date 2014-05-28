@@ -49,7 +49,7 @@ public class DevelopersScene extends Scene {
 		}
 
 		if(xx < 16+8){
-			xx++;
+			xx+=3;
 		}
 
 

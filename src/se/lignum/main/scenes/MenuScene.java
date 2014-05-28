@@ -19,12 +19,12 @@ public class MenuScene extends Scene {
 	
 	
 	private String[] informations = new String[]{
-			"Play with... yourself. Ha ha",
-			"Play online!",
-			"Well... Options I guess.",
-			"Go here if you are lost and don't know what to do",
+			"Play on your own. (Story Mode)",
+			"Play online.",
+			"Change the game settings.",
+			"Go here if you are lost.",
 			"Who are we?",
-			"Leave me :("
+			"Shut down the game."
 	};
 
 
@@ -66,7 +66,7 @@ public class MenuScene extends Scene {
 		}
 		
 		if(xx < 16+8){
-			xx++;
+			xx+3;
 		}
 
 
