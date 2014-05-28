@@ -97,28 +97,34 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	
 	// Updates 60 times/sec
 	private void tick(){
-		//System.out.println("FPS: " + fps + ", UPS: " + ups);
 	}
-
-	private long timethen;
 	
 	@Override
 	public void run() {
-		timethen = System.currentTimeMillis();
 		float now = System.currentTimeMillis();
+		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
+		int frames = 0;
+		int updates = 0;
+		
 		while(true){
+			delta += (now - lastTime) / ns;
+			while (delta >= 1) {
+				tick();
+				updates++;
+				delta--;
+			}
+			repaint();
+			frames++;
 			
-			this.repaint();
-			
-			
-	
-			now = System.currentTimeMillis();
-			
-			
-			
-			this.fps = ((timethen - now));
-			System.out.println(now - timethen);
-			tick();
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				System.out.println(updates + " Ups " + frames + " Fps");
+				updates = 0;
+				frames = 0;
+			}
 		}
 
 	}
