@@ -27,6 +27,8 @@ public class DevelopersScene extends Scene {
 	
 	private int selectionIndex = 0;
 	int xx = 16;
+	int yy;
+	boolean rise = true;
 	
 	public void tick(){
 		if(Game.vk_down){
@@ -51,6 +53,21 @@ public class DevelopersScene extends Scene {
 		if(xx < 16+8){
 			xx+=3;
 		}
+		
+		if (rise == true && yy <= 6)
+		{
+		  yy += 1;
+
+		  if (yy == 6)
+		  {rise = false;}
+		}
+		else
+		{
+		    rise = false;
+		    yy -= 1;
+
+		    if (yy == 0)
+		    rise = true;}
 
 
 	}
@@ -64,7 +81,7 @@ public class DevelopersScene extends Scene {
 		for(int i = 0; i < people.length; i++){
 			if(i == selectionIndex){
 				g.setColor(Color.green);
-				g.drawString(people[i], xx, 64+32*i);
+				g.drawString(people[i], xx, 64+32*i+yy);
 				
 			}else{
 				
