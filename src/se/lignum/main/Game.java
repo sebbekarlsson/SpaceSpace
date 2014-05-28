@@ -19,6 +19,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 2;
+	private String fps, ups;
 
 	public static final Dimension SCREENSIZE = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
 	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width/2,SCREENSIZE.height/2);
@@ -65,6 +66,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	}
 
 
+	// Only print stuff!
 	public void paint(Graphics g){
 		Graphics gg = offscreen.getGraphics();
 
@@ -91,20 +93,30 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		
 		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 1), 0, 0, this);
 		
-		repaint();
-		
+	}
+	
+	// Updates 60 times/sec
+	private void tick(){
+		System.out.println("FPS: " + fps + ", UPS: " + ups);
 	}
 
+	private long timethen;
+	
 	@Override
 	public void run() {
+		timethen = System.currentTimeMillis();
 		while(true){
-			
-			try {
-				Thread.sleep(1000/60);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			long timethenfps = System.currentTimeMillis();
+			this.repaint();
+			this.fps = ((timethenfps - System.currentTimeMillis()) / 60) + "";
+			long now = System.currentTimeMillis();
+			if(timethen + (1000/60) <= now) {
+				this.ups = (now - timethen) + "";
+				tick();
+			} else {
+				timethen = System.currentTimeMillis();
 			}
+			
 		}
 
 	}
