@@ -55,7 +55,7 @@ public class Mouse extends MouseAdapter {
 			}
 			
 		}
-		if(e.getButton() == 2){
+		if(e.getButton() == 3){
 			mb_right = true;
 		}
 		
@@ -73,7 +73,7 @@ public class Mouse extends MouseAdapter {
 			GameScene.mb_left_hold = false;
 			
 		}
-		if(e.getButton() == 2){
+		if(e.getButton() == 3){
 			mb_right = false;
 		}
 	}

@@ -41,6 +41,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static boolean vk_enter = false;
 	public static boolean vk_f1 = false;
 	public static boolean vk_escape = false;
+	public static boolean vk_control = false;
 	
 	public static Mouse mouse = new Mouse();
 
@@ -213,6 +214,9 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			vk_escape = true;
 		}
 
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+			vk_control = true;
+		}
 
 	}
 
@@ -236,6 +240,10 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
 			vk_escape = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+			vk_control = false;
 		}
 
 	}

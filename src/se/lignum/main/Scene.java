@@ -29,7 +29,18 @@ public class Scene {
 	
 	//destroys a specific object
 	public void destroy(Instance instance){
-		this.destroy(instance);
+		instances.remove(instance);
+	}
+	
+	public boolean instanceExists(Object o){
+		for(int i = 0; i < instances.size(); i++){
+			Instance instance = instances.get(i);
+			if(instance.getClass().equals(o)){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	//sets the scenes background
