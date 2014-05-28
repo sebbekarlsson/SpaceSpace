@@ -20,7 +20,10 @@ public class GameScene extends Scene {
 	public static boolean mb_left_hold = true;
 	
 	public GameScene(){
-		this.instantiate(new testObject(120,120));
+		this.instantiate(new testObject(120,40));
+		this.instantiate(new testObject(40,120));
+		this.instantiate(new testObject(300,66));
+		this.instantiate(new testObject(400,30));
 	}
 	
 	public void draw(Graphics g){

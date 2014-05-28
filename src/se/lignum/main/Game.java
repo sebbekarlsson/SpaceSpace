@@ -106,8 +106,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		gg.setColor(Color.black);
 
 
-		getCurrentScene().draw(gg);
-		getCurrentScene().tick();
+		
 		//calls the tick and draw method for every instance in the current scene
 		for(int i = 0; i < getCurrentScene().getInstances().size(); i++){
 
@@ -118,7 +117,8 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		}
 
-
+		getCurrentScene().draw(gg);
+		getCurrentScene().tick();
 
 		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 0), 0, 0, this);
 

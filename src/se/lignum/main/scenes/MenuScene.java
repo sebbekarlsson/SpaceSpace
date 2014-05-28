@@ -74,17 +74,17 @@ public class MenuScene extends Scene {
 
 	public void draw(Graphics g){
 		
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(0,149,255));
 		g.drawRect(0, 0, 186, Game.RENDERSIZE.height);
 
-		g.setColor(Color.blue);
+		
 
 		for(int i = 0; i < options.length; i++){
 			if(i == selectionIndex){
 				g.setColor(Color.green);
 				g.drawString(options[i], xx, 64+32*i);
 			}else{
-				g.setColor(Color.blue);
+				g.setColor(new Color(0,149,255));
 				g.drawString(options[i], 16, 64+32*i);
 			}
 			

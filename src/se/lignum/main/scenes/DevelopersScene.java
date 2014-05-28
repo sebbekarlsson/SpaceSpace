@@ -57,7 +57,7 @@ public class DevelopersScene extends Scene {
 	
 	public void draw(Graphics g){
 		
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(0,149,255));
 		g.drawRect(0, 0, 186, Game.RENDERSIZE.height);
 		
 		
@@ -68,7 +68,7 @@ public class DevelopersScene extends Scene {
 				
 			}else{
 				
-				g.setColor(Color.blue);
+				g.setColor(new Color(0,149,255));
 				g.drawString(people[i], 16, 64+32*i);
 			}
 			

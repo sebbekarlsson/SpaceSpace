@@ -1,5 +1,6 @@
 package se.lignum.main;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -12,6 +13,7 @@ public class Instance {
 	
 	public double x,y;
 	Image sprite;
+	public boolean marked = false;
 
 	public Instance(double x, double y){
 		this.x = x;
@@ -22,6 +24,10 @@ public class Instance {
 
 	public void draw(Graphics g){
 		drawDefaultSprite(g);
+		if(marked){
+			g.setColor(Color.BLUE);
+			g.drawRect((int)x-sprite.getWidth(null)/2, (int)y-sprite.getHeight(null)/2,(int) sprite.getWidth(null)*2,(int) sprite.getHeight(null)*2);
+		}
 	}
 
 	public void drawDefaultSprite(Graphics g){
