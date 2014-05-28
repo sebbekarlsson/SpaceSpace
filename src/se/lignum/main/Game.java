@@ -19,7 +19,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 2;
-	private String fps, ups;
+	private float fps, ups;
 
 	public static final Dimension SCREENSIZE = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
 	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width/2,SCREENSIZE.height/2);
@@ -86,7 +86,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			instance.tick();
 			instance.draw(gg);
 			
-			
+			 
 		}
 		
 		
@@ -101,6 +101,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	
 	@Override
 	public void run() {
+		float now = System.currentTimeMillis();
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0;
@@ -109,9 +110,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		int updates = 0;
 		
 		while(true){
-			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
-			lastTime = now;
 			while (delta >= 1) {
 				tick();
 				updates++;
@@ -127,7 +126,6 @@ public class Game extends JFrame implements Runnable, KeyListener {
 				updates = 0;
 				frames = 0;
 			}
-			
 		}
 
 	}
