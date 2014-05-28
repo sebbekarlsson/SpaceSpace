@@ -2,6 +2,8 @@ package se.lignum.main.scenes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 import se.lignum.main.Game;
 import se.lignum.main.Scene;
@@ -12,10 +14,9 @@ public class GameScene extends Scene {
 	int cx = 0;
 	int cy = 0;
 	
-	int rx = 0;
-	int ry = 0;
 	
-	public static boolean hold = false;
+	
+	public static boolean mb_left_hold = true;
 	
 	public void draw(Graphics g){
 		//trying to make the selection thing in the game, just like in windows when you select files, there is an rectangle drawn to the mouse
@@ -30,20 +31,24 @@ public class GameScene extends Scene {
 			
 			
 			
-			hold = true;
+			
 			
 			Game.mouse.mb_left = false;
 		}
 		
-		if(hold){
-			g.drawLine(cx, cy, Game.mouse.getX(), Game.mouse.getY());
-			System.out.println("holding");
+		
+		
+		if(mb_left_hold == true){
+			Graphics2D g2d = (Graphics2D) g;
+			Rectangle2D rect = new Rectangle2D.Double();
+			rect.setFrameFromDiagonal(Game.mouse.clickedX, Game.mouse.clickedY, Game.mouse.getX(), Game.mouse.getY());
+			g2d.draw(rect);
 		}
 		
 		
 		
-		
-		
 	}
+	
+	
 
 }

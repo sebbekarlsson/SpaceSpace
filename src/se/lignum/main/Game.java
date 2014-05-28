@@ -120,12 +120,15 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 
 
-		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 1), 0, 0, this);
+		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 0), 0, 0, this);
 
 	}
 
 	// Updates 60 times/sec
 	private void tick(){
+		
+		mouse.tick();
+		
 		if(vk_f1){
 			if(showDevGui == false){
 				showDevGui = true;

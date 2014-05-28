@@ -1,7 +1,13 @@
 package se.lignum.main.utils;
 
 import java.awt.event.MouseAdapter;
+import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
 
 import se.lignum.main.Game;
 import se.lignum.main.scenes.GameScene;
@@ -19,11 +25,18 @@ public class Mouse extends MouseAdapter {
 	public int releasedX = 0;
 	
 	
+	public void tick(){
+		PointerInfo a = MouseInfo.getPointerInfo();
+		Point point = new Point(a.getLocation());
+		SwingUtilities.convertPointFromScreen(point, Game.getFrames()[0]);
+		x=(int) point.getX();
+		y=(int) point.getY();
+	}
+	
 	@Override
 	public void mouseMoved(MouseEvent e){
-		this.x = e.getX();
-		this.y = e.getY();
 		System.out.println("X:"+x+" Y:"+y);
+		
 	}
 	
 	
@@ -33,6 +46,8 @@ public class Mouse extends MouseAdapter {
 		clickedX = x;
 		if(e.getButton() == 1){
 			mb_left = true;
+			
+			GameScene.mb_left_hold = true;
 			
 		}
 		if(e.getButton() == 2){
@@ -48,11 +63,18 @@ public class Mouse extends MouseAdapter {
 			mb_left = false;
 			
 			
-			GameScene.hold = false;
+			GameScene.mb_left_hold = false;
+			System.out.println("released");
 		}
 		if(e.getButton() == 2){
 			mb_right = false;
 		}
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e){
+		if(e.getButton() == 1){GameScene.mb_left_hold = true;}
+		
 	}
 	
 	public int getX(){
