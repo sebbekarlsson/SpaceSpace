@@ -19,14 +19,14 @@ public class Instance {
 	public void tick() {
 	}
 
-	public void draw(Graphics g, int camX, int camY) {
-		drawDefaultSprite(g,camX,camY);
+	public void draw(Graphics g) {
+		drawDefaultSprite(g);
 
 	}
 
-	public void drawDefaultSprite(Graphics g, int camX, int camY) {
+	public void drawDefaultSprite(Graphics g) {
 		if (this.sprite != null) {
-			g.drawImage(this.sprite, (int) x+camX, (int) y+camY, null);
+			g.drawImage(this.sprite, (int) x, (int) y, null);
 		} else {
 			System.out.println("Trying to draw a null sprite");
 		}

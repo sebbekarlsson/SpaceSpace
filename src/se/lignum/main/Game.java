@@ -45,16 +45,15 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 	public static Mouse mouse = new Mouse();
 	
-	public int camX;
-	public int camY;
-	public static final Dimension WORLDSIZE = new Dimension(WIDTH * 8, HEIGHT * 8);
+	
+	
 	
 	public Game() {
 
 		//this is where the scenes should be added
-		this.scenes.add(new MenuScene());
-		this.scenes.add(new GameScene());
-		this.scenes.add(new DevelopersScene());
+		scenes.add(new MenuScene());
+		scenes.add(new GameScene());
+		scenes.add(new DevelopersScene());
 
 		//frame options
 		this.setSize(SCREENSIZE);
@@ -90,7 +89,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		//draws the current scenes background if there is any
 		if (getCurrentScene().background != null) {
-			gg.drawImage(getCurrentScene().background, -camX, -camY, this); // This is yet untested...
+			gg.drawImage(getCurrentScene().background, 0, 0, this); // This is yet untested...
 		}
 
 		if (showDevGui) {
@@ -107,7 +106,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		for (int i = 0; i < getCurrentScene().getInstances().size(); i++) {
 			Instance instance = getCurrentScene().getInstances().get(i);
 			instance.tick();
-			instance.draw(gg,camX,camY);
+			instance.draw(gg);
 		}
 
 		getCurrentScene().draw(gg);
@@ -131,18 +130,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			vk_escape = false;
 		}
 		
-		// Update camera.
-		if (mouse.getX() > RENDERSIZE.width - SCROLL_THRESHOLD) {
-			camX--;
-		} else if (mouse.getX() < SCROLL_THRESHOLD) {
-			camX++;
-		}
 		
-		if (mouse.getY() > RENDERSIZE.height - SCROLL_THRESHOLD) {
-			camY--;
-		} else if (mouse.getY() < SCROLL_THRESHOLD) {
-			camY++;
-		}
 	}
 
 	@Override

@@ -21,19 +21,19 @@ public class Ship extends Instance {
 	}
 
 	@Override
-	public void draw(Graphics g, int camX, int camY) {
+	public void draw(Graphics g) {
 
-		drawDefaultSprite(g,camX,camY);
+		drawDefaultSprite(g);
 
 		if (marked) {
 			g.setColor(Color.BLUE);
-			g.drawRect((int) x + camX - sprite.getWidth(null) / 2,
-					(int) y + camY - sprite.getHeight(null) / 2,
+			g.drawRect((int) x +  - sprite.getWidth(null) / 2,
+					(int) y +  - sprite.getHeight(null) / 2,
 					(int) sprite.getWidth(null) * 2,
 					(int) sprite.getHeight(null) * 2);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font(Font.SERIF, 13, 13));
-			g.drawString("HP: " + (int) this.health, (int) x + camX, (int) y + camY - 16);
+			g.drawString("HP: " + (int) this.health, (int) x  , (int) y  - 16);
 		}
 	}
 
