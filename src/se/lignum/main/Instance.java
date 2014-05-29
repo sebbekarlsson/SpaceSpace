@@ -6,7 +6,7 @@ import se.lignum.main.scenes.GameScene;
 import se.lignum.main.utils.ImageLoader;
 
 public class Instance {
-
+//test
 	public double x, y;
 	protected Image sprite;
 	public boolean marked = false;
