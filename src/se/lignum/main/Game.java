@@ -16,7 +16,7 @@ import se.lignum.main.scenes.MenuScene;
 import se.lignum.main.utils.Mouse;
 
 public class Game extends JFrame implements Runnable, KeyListener {
-//test
+//lalala
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 16 * 9;
