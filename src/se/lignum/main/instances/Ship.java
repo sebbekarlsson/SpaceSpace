@@ -64,13 +64,13 @@ public class Ship extends Instance {
 			if (Game.getCurrentScene().instanceExists(MovePoint.class)) {
 
 				if (x < xx) {
-					x++;
+					x+=6;
 				} else if (x > xx) {
-					x--;
+					x-=6;
 				} else if (y < yy) {
-					y++;
+					y+=6;
 				} else if (y > yy) {
-					y--;
+					y-=6;
 				}
 			}
 		}

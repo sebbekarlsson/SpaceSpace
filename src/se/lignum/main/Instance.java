@@ -46,4 +46,8 @@ public class Instance {
 				&& GameScene.mb_left_hold && Game.vk_control;
 	}
 
+	public boolean isOutsideView(){
+		return this.x < -Game.camX || this.x > -Game.camX+Game.RENDERSIZE.width || this.y < -Game.camY || this.y > -Game.camY+Game.RENDERSIZE.height;
+	}
+
 }

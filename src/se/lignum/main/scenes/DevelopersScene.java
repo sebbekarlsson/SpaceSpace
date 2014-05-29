@@ -7,12 +7,18 @@ import se.lignum.main.Scene;
 
 public class DevelopersScene extends Scene {
 
+	public DevelopersScene(int sizeX, int sizeY) {
+		super(sizeX, sizeY);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String[] people = new String[]{
 		"Marcus Persson",
 		"Philip Johansson",
 		"Sebastian Karlsson",
 		"Filip Rotkirk",
-		"Robin Kangas"
+		"Robin Kangas",
+		"Back"
 	};
 
 	private String[] informations = new String[]{
@@ -20,7 +26,8 @@ public class DevelopersScene extends Scene {
 		"Programmer",
 		"Programmer",
 		"3D artist",
-		"Poster & Graphics Designer"
+		"Poster designer, Graphics Designer & Web developer",
+		"Go back to the main menu"
 	};
 
 	private int selectionIndex = 0;
@@ -46,6 +53,14 @@ public class DevelopersScene extends Scene {
 			}
 			xx = 16;
 			Game.vk_up = false;
+		}
+		
+		
+		if(Game.vk_enter){
+			if(selectionIndex == people.length-1){
+				Game.sceneIndex = 0;
+				Game.vk_enter = false;
+			}
 		}
 
 		if (xx < 16 + 8) {

@@ -8,6 +8,11 @@ import se.lignum.main.Scene;
 
 public class MenuScene extends Scene {
 
+	public MenuScene(int sizeX, int sizeY) {
+		super(sizeX, sizeY);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String[] options = new String[]{
 		"SinglePlayer",
 		"MultiPlayer",

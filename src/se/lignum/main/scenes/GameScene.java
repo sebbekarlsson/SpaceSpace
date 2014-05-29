@@ -12,16 +12,27 @@ import se.lignum.main.instances.testObject;
 
 public class GameScene extends Scene {
 
+	
+
 	int cx = 0;
 	int cy = 0;
 
 	public static boolean mb_left_hold = false;
 
-	public GameScene() {
+
+	
+	
+	public GameScene(int sizeX, int sizeY) {
+		super(sizeX, sizeY);
 		this.instantiate(new testObject(120, 40));
 		this.instantiate(new testObject(40, 120));
 		this.instantiate(new testObject(300, 66));
 		this.instantiate(new testObject(400, 30));
+		
+		this.instantiate(new testObject(-120, 40));
+		this.instantiate(new testObject(-40, 120));
+		this.instantiate(new testObject(-300, 66));
+		this.instantiate(new testObject(-400, 30));
 	}
 
 	@Override
