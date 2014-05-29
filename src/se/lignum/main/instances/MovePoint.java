@@ -8,5 +8,4 @@ public class MovePoint extends Instance {
 		super(x, y);
 		this.setSprite("images/marker/marker.png");
 	}
-
 }

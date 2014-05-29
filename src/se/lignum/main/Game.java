@@ -9,9 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
-
 import se.lignum.main.scenes.DevelopersScene;
 import se.lignum.main.scenes.GameScene;
 import se.lignum.main.scenes.MenuScene;
@@ -24,12 +22,14 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 2;
 	private float fps, ups;
+	
+	public static final int SCROLL_THRESHOLD = 100;
+	
+	public static final Dimension SCREENSIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width / 2, SCREENSIZE.height / 2);
+	public static BufferedImage offscreen = new BufferedImage(RENDERSIZE.width, RENDERSIZE.height, BufferedImage.TYPE_INT_RGB);
 
-	public static final Dimension SCREENSIZE = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
-	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width/2,SCREENSIZE.height/2);
-	public static BufferedImage offscreen = new BufferedImage(RENDERSIZE.width,RENDERSIZE.height,BufferedImage.TYPE_INT_RGB);
-
-	Thread gameLoop = new Thread(this,"Game Loop");
+	Thread gameLoop = new Thread(this, "Game Loop");
 
 	static List<Scene> scenes = new ArrayList<Scene>();
 	public static int sceneIndex = 0;
@@ -42,16 +42,14 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static boolean vk_f1 = false;
 	public static boolean vk_escape = false;
 	public static boolean vk_control = false;
-	
+
 	public static Mouse mouse = new Mouse();
-
-
-
-
-
-
+	
+	public int camX;
+	public int camY;
+	public static final Dimension WORLDSIZE = new Dimension(WIDTH * 8, HEIGHT * 8);
+	
 	public Game() {
-
 
 		//this is where the scenes should be added
 		this.scenes.add(new MenuScene());
@@ -68,83 +66,83 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		this.addKeyListener(this);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
-		
+
 		this.setFocusable(true);
 		this.requestFocus();
 	}
 
 	//starts the gameloop thread
-	public void start(){
+	public void start() {
 		this.gameLoop.start();
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Game game = new Game();
 		game.start();
 	}
 
-
 	// Only print stuff!
-	public void paint(Graphics g){
+	@Override
+	public void paint(Graphics g) {
 		Graphics gg = offscreen.getGraphics();
 
 		gg.clearRect(0, 0, SCREENSIZE.width, SCREENSIZE.width);
 
 		//draws the current scenes background if there is any
-		if(getCurrentScene().background != null){
-			gg.drawImage(getCurrentScene().background, 0, 0, this);
+		if (getCurrentScene().background != null) {
+			gg.drawImage(getCurrentScene().background, -camX, -camY, this); // This is yet untested...
 		}
 
-		if(showDevGui){
-			gg.setFont(new Font("Arial",12,12));
+		if (showDevGui) {
+			gg.setFont(new Font("Arial", 12, 12));
 			gg.setColor(Color.white);
 			gg.drawString("FPS: " + this.fps + " | UPS: " + this.ups, 16, 32);
-			
 		}
-		
-		gg.setFont(new Font(Font.DIALOG,16,16));
+
+		gg.setFont(new Font(Font.DIALOG, 16, 16));
 
 		gg.setColor(Color.black);
 
-
-		
 		//calls the tick and draw method for every instance in the current scene
-		for(int i = 0; i < getCurrentScene().getInstances().size(); i++){
-
+		for (int i = 0; i < getCurrentScene().getInstances().size(); i++) {
 			Instance instance = getCurrentScene().getInstances().get(i);
 			instance.tick();
-			instance.draw(gg);
-
-
+			instance.draw(gg,camX,camY);
 		}
 
 		getCurrentScene().draw(gg);
 		getCurrentScene().tick();
 
 		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 0), 0, 0, this);
-
 	}
 
 	// Updates 60 times/sec
-	private void tick(){
-		
+	private void tick() {
+
 		mouse.tick();
-		
-		if(vk_f1){
-			if(showDevGui == false){
-				showDevGui = true;
-			}else{
-				showDevGui = false;
-			}
+
+		if (vk_f1) {
+			showDevGui = !showDevGui;
 			vk_f1 = false;
 		}
-		
-		if(vk_escape){
+
+		if (vk_escape) {
 			sceneIndex = 0;
 			vk_escape = false;
 		}
 		
+		// Update camera.
+		if (mouse.getX() > RENDERSIZE.width - SCROLL_THRESHOLD) {
+			camX--;
+		} else if (mouse.getX() < SCROLL_THRESHOLD) {
+			camX++;
+		}
 		
+		if (mouse.getY() > RENDERSIZE.height - SCROLL_THRESHOLD) {
+			camY--;
+		} else if (mouse.getY() < SCROLL_THRESHOLD) {
+			camY++;
+		}
 	}
 
 	@Override
@@ -159,7 +157,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		while (true) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
-			
+
 			lastTime = now;
 			while (delta >= 1) {
 				tick();
@@ -171,7 +169,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				
+
 				fps = frames;
 				ups = updates;
 				updates = 0;
@@ -182,39 +180,38 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	}
 
 	//returns the current scene
-	public static Scene getCurrentScene(){
+	public static Scene getCurrentScene() {
 		return scenes.get(sceneIndex);
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 
-
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP){
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			vk_up = true;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_DOWN){
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			vk_down = true;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			vk_enter = true;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_F1){
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
 			vk_f1 = true;
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			vk_escape = true;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
 			vk_control = true;
 		}
 
@@ -222,32 +219,30 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP){
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			vk_up = false;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_DOWN){
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			vk_down = false;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			vk_enter = false;
 		}
 
-		if(e.getKeyCode() == KeyEvent.VK_F1){
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
 			vk_f1 = false;
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			vk_escape = false;
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
 			vk_control = false;
 		}
 
 	}
-
-
 
 }
