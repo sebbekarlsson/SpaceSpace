@@ -18,12 +18,12 @@ public class GameScene extends Scene {
 	int cy = 0;
 
 	public static boolean mb_left_hold = false;
-
-
 	
 	
-	public GameScene(int sizeX, int sizeY) {
-		super(sizeX, sizeY);
+	
+	
+	public GameScene(int sizeX, int sizeY,boolean useCamera) {
+		super(sizeX, sizeY,useCamera);
 		this.instantiate(new testObject(120, 40));
 		this.instantiate(new testObject(40, 120));
 		this.instantiate(new testObject(300, 66));

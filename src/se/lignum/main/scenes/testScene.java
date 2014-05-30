@@ -5,8 +5,8 @@ import se.lignum.main.Scene;
 
 public class testScene extends Scene {
 
-	public testScene(int sizeX, int sizeY) {
-		super(sizeX, sizeY);
+	public testScene(int sizeX, int sizeY,boolean useCamera) {
+		super(sizeX, sizeY,useCamera);
 		// TODO Auto-generated constructor stub
 	}
 

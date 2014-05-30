@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.lignum.main.utils.Camera;
 import se.lignum.main.utils.ImageLoader;
 
 public class Scene {
@@ -16,10 +17,13 @@ public class Scene {
 	
 	private int ROOM_SIZE_X;
 	private int ROOM_SIZE_Y;
+	public Camera camera = new Camera();
+	private boolean useCamera = false;
 	
-	public Scene(int sizeX,int sizeY){
+	public Scene(int sizeX,int sizeY,boolean useCamera){
 		this.ROOM_SIZE_X = sizeX;
 		this.ROOM_SIZE_Y = sizeY;
+		this.useCamera = useCamera;
 	}
 
 	public void tick() {}
@@ -69,4 +73,14 @@ public class Scene {
 	public void setBackground(String imagePath) {
 		this.background = ImageLoader.load(imagePath);
 	}
+	
+	public boolean hasCamera(){
+		return this.useCamera;
+	}
+	
+	public Camera getCamera(){
+		return this.camera;
+	}
+	
+	
 }

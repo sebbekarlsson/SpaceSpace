@@ -8,8 +8,8 @@ import se.lignum.main.Scene;
 
 public class MenuScene extends Scene {
 
-	public MenuScene(int sizeX, int sizeY) {
-		super(sizeX, sizeY);
+	public MenuScene(int sizeX, int sizeY, boolean useCamera) {
+		super(sizeX, sizeY,useCamera);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -26,8 +26,8 @@ public class Mouse extends MouseAdapter {
 		PointerInfo a = MouseInfo.getPointerInfo();
 		Point point = new Point(a.getLocation());
 		SwingUtilities.convertPointFromScreen(point, Game.getFrames()[0]);
-		x = (int) point.getX()/2 - Game.camX;
-		y = (int) point.getY()/2 - Game.camY;
+		x = (int) point.getX()/2 - Game.getCurrentScene().getCamera().x;
+		y = (int) point.getY()/2 - Game.getCurrentScene().getCamera().y;
 	}
 
 	@Override

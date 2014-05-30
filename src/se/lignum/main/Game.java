@@ -16,7 +16,7 @@ import se.lignum.main.scenes.MenuScene;
 import se.lignum.main.utils.Mouse;
 
 public class Game extends JFrame implements Runnable, KeyListener {
-//lalala
+	//lalala
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 16 * 9;
@@ -45,25 +45,16 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 	public static Mouse mouse = new Mouse();
 
-	public static int WORLD_SIZE_X = 0;
-	public static int WORLD_SIZE_Y = 0;
 
-	public static int offsetMaxX = WORLD_SIZE_X - RENDERSIZE.width;
-	public static int offsetMaxY = WORLD_SIZE_Y - RENDERSIZE.height;
-	public static int offsetMinX = 0;
-	public static int offsetMinY = 0;
-
-	public static int camX = 0;
-	public static int camY = 0;
 
 
 
 	public Game() {
 
 		//this is where the scenes should be added
-		scenes.add(new MenuScene(RENDERSIZE.width,RENDERSIZE.height));
-		scenes.add(new GameScene(5000,5000));
-		scenes.add(new DevelopersScene(RENDERSIZE.width,RENDERSIZE.height));
+		scenes.add(new MenuScene(RENDERSIZE.width,RENDERSIZE.height,false));
+		scenes.add(new GameScene(5000,5000,true));
+		scenes.add(new DevelopersScene(RENDERSIZE.width,RENDERSIZE.height,false));
 
 		//frame options
 		this.setSize(SCREENSIZE);
@@ -97,7 +88,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		gg.clearRect(0, 0, SCREENSIZE.width, SCREENSIZE.width);
 
-		gg.translate(camX, camY);
+		gg.translate(getCurrentScene().getCamera().x, getCurrentScene().getCamera().y);
 
 		//draws the current scenes background if there is any
 		if (getCurrentScene().background != null) {
@@ -124,34 +115,51 @@ public class Game extends JFrame implements Runnable, KeyListener {
 			}
 
 		}
-		
+
 		gg.setColor(Color.red);
-		gg.drawRect(-camX, -camY, RENDERSIZE.width-10, RENDERSIZE.height-10);
+		gg.drawRect(-getCurrentScene().getCamera().x, -getCurrentScene().getCamera().y, RENDERSIZE.width-10, RENDERSIZE.height-10);
 
 		getCurrentScene().draw(gg);
 		getCurrentScene().tick();
 
-		gg.translate(-camX, -camY);
+		gg.translate(-getCurrentScene().getCamera().x, -getCurrentScene().getCamera().y);
 
 		g.drawImage(offscreen.getScaledInstance(SCREENSIZE.width, SCREENSIZE.height, 0), 0, 0, this);
 	}
 
 	// Updates 60 times/sec
 	private void tick() {
+		//updateRoomSize();
 
 
 
-		updateRoomSize();
 		mouse.tick();
 
 		//camX = mouse.getX() - RENDERSIZE.height/2;
 		//camY = mouse.getY() - RENDERSIZE.width/2;
-		camX ++;
-		if(camX > offsetMaxX){
+
+		if(getCurrentScene().hasCamera()){
+
+			if(mouse.getX() > RENDERSIZE.width-100-getCurrentScene().getCamera().x){
+				getCurrentScene().getCamera().x -= 10;
+			}
+			if(mouse.getX() < 0+100-getCurrentScene().getCamera().x){
+				getCurrentScene().getCamera().x += 10;
+			}
+			if(mouse.getY() > RENDERSIZE.height-100-getCurrentScene().getCamera().y){
+				getCurrentScene().getCamera().y -= 10;
+			}
+			if(mouse.getY() < 0+100-getCurrentScene().getCamera().y){
+				getCurrentScene().getCamera().y += 10;
+			}
+		}
+
+
+		/*if(camX > offsetMaxX){
 			camX = offsetMaxX;
 		}else if(camX < offsetMinX){
 			camX = offsetMinX;
-		}
+		}*/
 
 		if (vk_f1) {
 			showDevGui = !showDevGui;
@@ -201,7 +209,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	}
 
 	//updates the rooms size 
-	public void updateRoomSize(){
+	/*public void updateRoomSize(){
 		WORLD_SIZE_X = getCurrentScene().getRoomSize().width;
 		WORLD_SIZE_Y = getCurrentScene().getRoomSize().width;
 
@@ -209,7 +217,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 		offsetMaxY = WORLD_SIZE_Y - RENDERSIZE.height;
 		offsetMinX = 0;
 		offsetMinY = 0;
-	}
+	}*/
 
 	//returns the current scene
 	public static Scene getCurrentScene() {
