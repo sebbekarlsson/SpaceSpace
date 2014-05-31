@@ -26,7 +26,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static final int SCROLL_THRESHOLD = 100;
 
 	public static final Dimension SCREENSIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
-	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width / 2, SCREENSIZE.height / 2);
+	public static final Dimension RENDERSIZE = new Dimension(SCREENSIZE.width / 2 + SCREENSIZE.width / 2 , SCREENSIZE.height / 2 + SCREENSIZE.height / 2);
 	public static BufferedImage offscreen = new BufferedImage(RENDERSIZE.width, RENDERSIZE.height, BufferedImage.TYPE_INT_RGB);
 
 	Thread gameLoop = new Thread(this, "Game Loop");
