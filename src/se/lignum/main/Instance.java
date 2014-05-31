@@ -47,7 +47,7 @@ public class Instance {
 	}
 
 	public boolean isOutsideView(){
-		return this.x < -Game.camX || this.x > -Game.camX+Game.RENDERSIZE.width || this.y < -Game.camY || this.y > -Game.camY+Game.RENDERSIZE.height;
+		return this.x < -Game.getCurrentScene().getCamera().x || this.x > -Game.getCurrentScene().getCamera().x+Game.RENDERSIZE.width || this.y < -Game.getCurrentScene().getCamera().y || this.y > -Game.getCurrentScene().getCamera().y+Game.RENDERSIZE.height;
 	}
 
 }
