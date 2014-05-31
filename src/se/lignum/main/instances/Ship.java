@@ -65,11 +65,11 @@ public class Ship extends Instance {
 
 				if (x < xx) {
 					x+=6;
-				} else if (x > xx) {
+				} if (x > xx) {
 					x-=6;
-				} else if (y < yy) {
+				}  if (y < yy) {
 					y+=6;
-				} else if (y > yy) {
+				} if (y > yy) {
 					y-=6;
 				}
 			}
