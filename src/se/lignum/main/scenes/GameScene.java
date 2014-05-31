@@ -5,10 +5,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+
 import se.lignum.main.Game;
 import se.lignum.main.Scene;
 import se.lignum.main.instances.MovePoint;
+import se.lignum.main.instances.Star;
 import se.lignum.main.instances.testObject;
+import se.lignum.main.instances.planets.Earth;
+import se.lignum.main.utils.Mathz;
 
 public class GameScene extends Scene {
 
@@ -24,15 +28,29 @@ public class GameScene extends Scene {
 	
 	public GameScene(int sizeX, int sizeY,boolean useCamera) {
 		super(sizeX, sizeY,useCamera);
-		this.instantiate(new testObject(120, 40));
-		this.instantiate(new testObject(40, 120));
-		this.instantiate(new testObject(300, 66));
-		this.instantiate(new testObject(400, 30));
 		
-		this.instantiate(new testObject(-120, 40));
-		this.instantiate(new testObject(-40, 120));
-		this.instantiate(new testObject(-300, 66));
-		this.instantiate(new testObject(-400, 30));
+		this.camera.x = -this.ROOM_SIZE_X / 2;
+		this.camera.y = -this.ROOM_SIZE_Y / 2;
+		
+		for(int i = 0; i < 10000; i++){
+			this.instantiate(new Star(Mathz.random.nextInt(this.ROOM_SIZE_X),Mathz.random.nextInt(this.ROOM_SIZE_Y)));
+		}
+		
+		
+		
+		this.instantiate(new Earth(this.ROOM_SIZE_X/2,this.ROOM_SIZE_Y/2));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2+300,this.ROOM_SIZE_Y/2+100));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2-300,this.ROOM_SIZE_Y/2-100));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2+150,this.ROOM_SIZE_Y/2-500));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2-150,this.ROOM_SIZE_Y/2));
+		
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2+500,this.ROOM_SIZE_Y/2-100));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2-500,this.ROOM_SIZE_Y/2+500));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2,this.ROOM_SIZE_Y/2-20));
+		this.instantiate(new testObject(this.ROOM_SIZE_X/2,this.ROOM_SIZE_Y/2+1000));
+		
+		
+		
 	}
 
 	@Override

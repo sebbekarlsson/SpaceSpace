@@ -10,13 +10,16 @@ public class Instance {
 	public double x, y;
 	protected Image sprite;
 	public boolean marked = false;
+	int renderDistance = 100;
 
 	public Instance(double x, double y) {
 		this.x = x;
 		this.y = y;
+	
 	}
 
 	public void tick() {
+		
 	}
 
 	public void draw(Graphics g) {
@@ -27,6 +30,7 @@ public class Instance {
 	public void drawDefaultSprite(Graphics g) {
 		if (this.sprite != null) {
 			g.drawImage(this.sprite, (int) x, (int) y, null);
+			
 		} else {
 			System.out.println("Trying to draw a null sprite");
 		}
@@ -47,7 +51,7 @@ public class Instance {
 	}
 
 	public boolean isOutsideView(){
-		return this.x < -Game.getCurrentScene().getCamera().x || this.x > -Game.getCurrentScene().getCamera().x+Game.RENDERSIZE.width || this.y < -Game.getCurrentScene().getCamera().y || this.y > -Game.getCurrentScene().getCamera().y+Game.RENDERSIZE.height;
+		return this.x < -Game.getCurrentScene().getCamera().x-(renderDistance) || this.x > -Game.getCurrentScene().getCamera().x+Game.RENDERSIZE.width+(renderDistance) || this.y < -Game.getCurrentScene().getCamera().y-(renderDistance) || this.y > -Game.getCurrentScene().getCamera().y+Game.RENDERSIZE.height+(renderDistance);
 	}
 
 }

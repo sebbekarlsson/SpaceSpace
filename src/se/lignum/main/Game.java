@@ -116,8 +116,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 
 		}
 
-		gg.setColor(Color.red);
-		gg.drawRect(-getCurrentScene().getCamera().x, -getCurrentScene().getCamera().y, RENDERSIZE.width-10, RENDERSIZE.height-10);
+		
 
 		getCurrentScene().draw(gg);
 		getCurrentScene().tick();

@@ -4,9 +4,13 @@ import java.util.Random;
 
 public class Mathz {
 
-	static Random random = new Random();
+	public static Random random = new Random();
 
 	public static String chooseString(String... args) {
+		return args[random.nextInt(args.length)];
+	}
+	
+	public static double chooseDouble(double... args) {
 		return args[random.nextInt(args.length)];
 	}
 }

@@ -15,8 +15,8 @@ public class Scene {
 
 	List<Instance> instances = new ArrayList<Instance>();
 	
-	private int ROOM_SIZE_X;
-	private int ROOM_SIZE_Y;
+	protected int ROOM_SIZE_X;
+	protected int ROOM_SIZE_Y;
 	public Camera camera = new Camera();
 	private boolean useCamera = false;
 	
@@ -80,6 +80,13 @@ public class Scene {
 	
 	public Camera getCamera(){
 		return this.camera;
+	}
+	
+	protected void setRoomSize(Dimension d){
+		
+		this.ROOM_SIZE_X = d.width;
+		this.ROOM_SIZE_Y = d.height;
+		
 	}
 	
 	
