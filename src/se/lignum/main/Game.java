@@ -46,7 +46,7 @@ public class Game extends JFrame implements Runnable, KeyListener {
 	public static Mouse mouse = new Mouse();
 
 
-
+//nigeria
 
 
 	public Game() {
