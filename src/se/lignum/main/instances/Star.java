@@ -14,23 +14,14 @@ public class Star extends Instance {
 	public Star(double x, double y) {
 		super(x, y);
 		this.setSprite("images/star.png");
-		int scale = Mathz.random.nextInt(16)+1;
+		int scale = Mathz.random.nextInt(3)+1;
 		this.sprite = sprite.getScaledInstance((int)scale, (int)scale, 1);
 		
 	}
 	
 	public void tick(){
 		
-		switch(dir){
-		case 0: x+=speed; break;
-		case 1: x-=speed; break;
-		case 2: y+=speed; break;
-		case 3: y-=speed; break;
-		}
 		
-		if(Mathz.random.nextInt(2000) >= 1900){
-			dir = Mathz.random.nextInt(4);
-		}
 		
 	}
 
